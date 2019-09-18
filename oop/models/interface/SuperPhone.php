@@ -1,0 +1,4 @@
+<? 
+class SuperPhone extends PhoneAbstract{
+	
+}
