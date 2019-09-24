@@ -4,8 +4,9 @@
     <title><?=$pageTitle;?></title>
 </head>
 <body><ul>
-    <li><a href="?model=students&action=list">Students list</a></li>
-    <li><a href="?model=groups&action=list">Groups list</a></li>
+    <li><a href="?model=students">Students list</a></li>
+    <li><a href="?model=groups">Groups list</a></li>
+    <li><a href="?model=groups&action=create">Group create</a></li>
 </ul>
 
     <?=$pageContent;?>

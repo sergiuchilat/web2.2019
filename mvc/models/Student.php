@@ -3,7 +3,7 @@
 
 class Student
 {
-    public function getList() {
+    public function getAllStudents() {
         return [
             [
                 'name' => 'Ion Creanga',

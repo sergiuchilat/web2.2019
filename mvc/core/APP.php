@@ -11,39 +11,35 @@ class APP
     }
 
     public function run (){
-        //todo refactor routing
-        require_once 'models/Student.php';
-        require_once 'models/Group.php';
+        require_once 'controllers/GroupsController.php';
+        require_once 'controllers/StudentsController.php';
+        $appLocales = include 'locales/en/modules.php';
 
         $model = $_GET['model'];
-        $action = $_GET['action'];
+        $action = $_GET['action'] ?: "index";
+        $controllerName =  ucfirst($model) . "Controller";
+        $methodName = "action" . ucfirst($action);
 
-        switch ($model) {
-            case "students":
-                //todo refactor get pageTitle
-                $student = new Student();
-                $data = $student->getList();
-                $pageTitle = 'List - Students';
-                break;
-            case "groups":
-                $group = new Group();
-                $data = $group->getList();
-                //todo refactor get pageTitle
-                $pageTitle = 'List - Groups';
-                break;
-        }
+        $controllerObject = new $controllerName();
+        $data = $controllerObject->$methodName();
 
         $viewPath = "views/{$model}/{$action}.php";
 
-        if(empty($model) || empty($action) || !file_exists($viewPath)) {
+        if(
+            empty($model) ||
+            !method_exists($controllerObject, $methodName) ||
+            !file_exists($viewPath)
+        ) {
             $viewPath = "views/errors/e404.php";
         }
         ob_start();
+
+        $pageTitle = $appLocales[$model]['title'];
+
         include $viewPath;
         $pageContent = ob_get_contents();
         ob_end_clean();
 
-        include 'layouts/custom.php';
-
+        include 'layouts/main.php';
     }
 }

@@ -3,7 +3,7 @@
 
 class Group
 {
-    public function getList() {
+    public function getAllGroups() {
         return [
             [
                 'name' => 'IS11Z',
@@ -18,5 +18,10 @@ class Group
                 'email' => 'is31z@gmail.com'
             ]
         ];
+    }
+
+
+    public function create () {
+        return 'Student created';
     }
 }
