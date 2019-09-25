@@ -1,4 +1,9 @@
 <?php
+use Bramus\Router\Router;
+
+require_once 'controllers/GroupsController.php';
+require_once 'controllers/StudentsController.php';
+
 class APP
 {
     private static $instance = null;
@@ -10,7 +15,41 @@ class APP
         return self::$instance;
     }
 
-    public function run (){
+    public function handleRequest($controller, $action) {
+        $modelName = ucfirst($controller);
+        $actionName = ucfirst($action);
+        $controller = "Controllers\\{$modelName}Controller";
+        $action = "action{$actionName}";
+        /*if (!class_exists($controller)){
+            $controller = "Controllers\\ErrorController";
+        }*/
+        $objController = new $controller;
+        if (!method_exists($objController, $action)){
+            switch ($controller){
+                /*case "Controllers\\ErrorController":
+                    $action = 'action404';
+                    break;*/
+            }
+        }
+        //DB::getInstance()->connect();
+        $objController->$action();
+    }
+
+    public function run () {
+        $router = new Router();
+        $router->get('/', function (){
+            $this->handleRequest("Home", "Index");
+        });
+        $router->get('/home', function (){
+            $this->handleRequest("Home", "Index");
+    });
+        $router->get('/groups', function (){
+            $this->handleRequest("Groups", "Index");
+        });
+        $router->run();
+    }
+
+    public function run0 (){
         require_once 'controllers/GroupsController.php';
         require_once 'controllers/StudentsController.php';
         $appLocales = include 'locales/en/modules.php';

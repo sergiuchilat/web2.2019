@@ -1,0 +1,8 @@
+{
+    "name": "web2/mvc",
+    "type": "project",
+    "minimum-stability": "alpha",
+    "require": {
+        "bramus/router": "~1.4"
+    }
+}
