@@ -1,17 +1,18 @@
 <?php
 
+namespace Models;
 
 class Group
 {
     private $db = null;
 
-    public function __construct(DB $db)
+    /*public function __construct(DB $db)
     {
         $this->db = $db;
-    }
+    }*/
 
     public function getAllGroups() {
-        return $this->db->select();
+        // return $this->db->select();
     }
 
 

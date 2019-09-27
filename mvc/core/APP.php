@@ -1,8 +1,10 @@
 <?php
 use Bramus\Router\Router;
 
+require_once 'controllers/MainController.php';
 require_once 'controllers/GroupsController.php';
 require_once 'controllers/StudentsController.php';
+
 
 class APP
 {
@@ -15,36 +17,49 @@ class APP
         return self::$instance;
     }
 
-    public function handleRequest($controller, $action) {
-        $modelName = ucfirst($controller);
+    public function handleRequest($model, $action) {
+        $modelName = ucfirst($model);
         $actionName = ucfirst($action);
         $controller = "Controllers\\{$modelName}Controller";
-        $action = "action{$actionName}";
+        $method = "action{$actionName}";
         /*if (!class_exists($controller)){
             $controller = "Controllers\\ErrorController";
         }*/
         $objController = new $controller;
-        if (!method_exists($objController, $action)){
-            switch ($controller){
-                /*case "Controllers\\ErrorController":
-                    $action = 'action404';
-                    break;*/
-            }
+        if (!method_exists($objController, $method)){
+
         }
         //DB::getInstance()->connect();
-        $objController->$action();
+        $objController->$method();
+
+        $viewPath = "views/{$model}/{$action}.php";
+
+        if(
+            empty($model) ||
+            !method_exists($objController, $method) ||
+            !file_exists($viewPath)
+        ) {
+            $viewPath = "views/errors/e404.php";
+        }
+        ob_start();
+
+        $pageTitle = $appLocales[$model]['title'];
+
+        include $viewPath;
+        $pageContent = ob_get_contents();
+        ob_end_clean();
     }
 
     public function run () {
         $router = new Router();
         $router->get('/', function (){
-            $this->handleRequest("Home", "Index");
+            $this->handleRequest("Main", "index");
         });
         $router->get('/home', function (){
-            $this->handleRequest("Home", "Index");
-    });
+            $this->handleRequest("Main", "index");
+        });
         $router->get('/groups', function (){
-            $this->handleRequest("Groups", "Index");
+            $this->handleRequest("Groups", "index");
         });
         $router->run();
     }
