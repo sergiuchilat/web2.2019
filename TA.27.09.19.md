@@ -4,3 +4,7 @@
 2. De citit/conspectat:
  - REST
  - SOAP
+3. NodeJS
+ - sintaxa
+ - crearea serverului
+ 
