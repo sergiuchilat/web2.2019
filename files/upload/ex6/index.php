@@ -5,18 +5,8 @@ if(!empty($_POST['name']) && !empty($_POST['age'])) {
 
     $fileName = '';
 
-    echo '<pre>';
-    print_r($_FILES);
-    echo '</pre>';
-    if(isset($_FILES)){
-        foreach ($_FILES['photos']['name'] as $key => $value) {
 
-            $fileName = microtime() . ".png";
-            if(!move_uploaded_file($_FILES['photos']['tmp_name'][$key], 'files/' . $fileName)){
-                $fileName = '';
-            }
-        }
-    }
+
 
 
     $query = "
@@ -28,6 +18,27 @@ if(!empty($_POST['name']) && !empty($_POST['age'])) {
           
     ";
     $result = mysqli_query($connection, $query);
+
+    $lastID = mysqli_insert_id($connection);
+
+
+    if(isset($_FILES)){
+        foreach ($_FILES['photos']['name'] as $key => $value) {
+
+            $fileName = microtime() . ".png";
+            if(move_uploaded_file($_FILES['photos']['tmp_name'][$key], 'files/' . $fileName)){
+                $query = "
+                  INSERT INTO photos
+                  SET
+                      filename = '{$fileName}',
+                      student_id = {$lastID}
+                      
+                ";
+
+                $result = mysqli_query($connection, $query);
+            }
+        }
+    }
 }
 ?>
 <!doctype html>
