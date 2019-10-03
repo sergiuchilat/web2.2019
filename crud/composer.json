@@ -1,0 +1,16 @@
+{
+    "name": "sergiu/crud",
+    "description": "Crud sample",
+    "type": "project",
+    "license": "Free",
+    "authors": [
+        {
+            "name": "Sergiu Chilat",
+            "email": "chilatsergiu@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "bramus/router": "~1.4"
+    }
+}
