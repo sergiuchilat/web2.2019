@@ -3,7 +3,8 @@ require_once '../app/core/DB.php';
 require_once '../app/controllers/MainController.php';
 require_once '../app/controllers/AuthController.php';
 require_once '../app/controllers/ProductsController.php';
-
+require_once '../app/core/User.php';
+use User;
 
 class APP
 {
@@ -35,6 +36,7 @@ class APP
     public function run () {
         APP::$db = new DB();
         APP::$db->open('localhost', 'root', '', 'store', 'utf8');
+        $user = User::getInstance();
         require_once '../app/routes.php';
     }
 }
