@@ -1,10 +1,11 @@
 <?php
+//todo is31z add autoloader
 require_once '../app/core/DB.php';
 require_once '../app/controllers/MainController.php';
 require_once '../app/controllers/AuthController.php';
 require_once '../app/controllers/ProductsController.php';
+require_once '../app/controllers/CartController.php';
 require_once '../app/core/User.php';
-use User;
 
 class APP
 {
@@ -18,7 +19,7 @@ class APP
         return self::$instance;
     }
 
-    public function handleRequest($model, $action) {
+    public function handleRequest($model, $action, $params = []) {
         $modelName = ucfirst($model);
         $actionName = ucfirst($action);
         $controller = "Controllers\\{$modelName}Controller";
@@ -27,7 +28,7 @@ class APP
         $objController = new $controller;
 
         ob_start();
-        $objController->$method();
+        $objController->$method($params);
         $viewContent = ob_get_contents();
         ob_end_clean();
         View::loadLayout('default', $viewContent);

@@ -9,6 +9,7 @@ class Product
         $db->open('localhost', 'root', '', 'store', 'utf8');
         $products = $db->select('
             SELECT
+                id,
                 name,
                 price
             FROM

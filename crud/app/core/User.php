@@ -21,6 +21,15 @@ class User
     }
 
     public function login ($username, $password) {
-        return ($username === 'admin' && $password === '1234');
+        if ($username === 'admin' && $password === '1234') {
+            $_SESSION['USER']['authorised'] = true;
+            $_SESSION['USER']['name'] = 'Ion Creanga';
+            return true;
+        }
+        return false;
+    }
+
+    public function isAuthorised () {
+        return $_SESSION['USER']['authorised'];
     }
 }

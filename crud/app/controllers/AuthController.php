@@ -9,15 +9,16 @@ class AuthController
 {
     public function actionLogin (){
 
-        /*if(
-            (isset($_POST['username']) || isset($_POST['password']))
-            &&
-            (empty($_POST['username']) || empty($_POST['password']))
+        if(
+            (!isset($_POST['username']) || !isset($_POST['password']))
         ){
+            return View::render('auth/login');
+        }
+
+        if(!User::getInstance()->login($_POST['username'], $_POST['password']))
             return View::render('auth/login_error');
-        }*/
-        User::getInstance()->login($_POST['username'], $_POST['password']);
-        return View::render('auth/login');
+
+        header("Location: /products");
     }
 
 
