@@ -4,7 +4,7 @@
  * afisarea toturor elementelor
  * stergere element de pe pozitia indicata
 2. De creat interfata vizuala pentru realizarea functiilor clasei Masiv
- * "add.php" - 
+ * "add.php" - adaugarea elementului nou in masiv
  * "show_one.php?index=3" - afisarea elementului de pe pozitia 3
  * "show_all.php" - afisarea tuturor elementelor masivului
  * "delete.php?index=2" - stergerea elementului de pe pozitia 2
