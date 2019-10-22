@@ -8,3 +8,5 @@
  * "show_one.php?index=3" - afisarea elementului de pe pozitia 3
  * "show_all.php" - afisarea tuturor elementelor masivului
  * "delete.php?index=2" - stergerea elementului de pe pozitia 2
+ 
+ Masivul trebuie sa fie salvat in SESSION
